@@ -113,6 +113,7 @@ class CollapsedVB(GPy.core.Model):
                 bound = self.bound()
             except LinAlgError:
                 self.set_vb_param(phi_old)
+                step_length /= 2.
                 bound = bound_old-1
             iteration += 1
 
@@ -126,6 +127,7 @@ class CollapsedVB(GPy.core.Model):
                     import warnings
                     warnings.warn("Caught LinalgError in setting variational parameters, trying to continue with old parameter settings", LinAlgWarning)
                     self.set_vb_param(phi_old)
+                    step_length /= 2.
                     bound = self.bound()
                     iteration_failed = False
                 iteration += 1
