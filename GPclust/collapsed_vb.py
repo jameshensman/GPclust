@@ -123,6 +123,7 @@ class CollapsedVB(GPy.core.Model):
                 try:
                     self.set_vb_param(phi_old + step_length*searchDir)
                     bound = self.bound()
+                    step_length /= 2.
                 except LinAlgError:
                     import warnings
                     warnings.warn("Caught LinalgError in setting variational parameters, trying to continue with old parameter settings", LinAlgWarning)
