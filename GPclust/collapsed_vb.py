@@ -113,6 +113,7 @@ class CollapsedVB(GPy.core.Model):
                 bound = self.bound()
             except LinAlgError:
                 self.set_vb_param(phi_old)
+                step_length /= 2.
                 bound = bound_old-1
             iteration += 1
 
@@ -122,17 +123,19 @@ class CollapsedVB(GPy.core.Model):
                 try:
                     self.set_vb_param(phi_old + step_length*searchDir)
                     bound = self.bound()
+                    step_length /= 2.
                 except LinAlgError:
                     import warnings
                     warnings.warn("Caught LinalgError in setting variational parameters, trying to continue with old parameter settings", LinAlgWarning)
                     self.set_vb_param(phi_old)
+                    step_length /= 2.
                     bound = self.bound()
                     iteration_failed = False
                 iteration += 1
 
 
             if verbose:
-                print '\riteration '+str(iteration)+' bound='+str(bound) + ' grad='+str(squareNorm) + ', beta='+str(beta),
+                print '\riteration '+str(iteration)+' bound='+str(bound) + ' grad='+str(squareNorm) + ', beta='+str(beta) + ', step_length='+str(step_length), 
                 sys.stdout.flush()
 
             # converged yet? try the parameters if so
