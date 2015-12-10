@@ -134,7 +134,7 @@ class CollapsedVB(GPy.core.Model):
 
 
             if verbose:
-                print '\riteration '+str(iteration)+' bound='+str(bound) + ' grad='+str(squareNorm) + ', beta='+str(beta),  + ', step_size='+str(step_size), 
+                print '\riteration '+str(iteration)+' bound='+str(bound) + ' grad='+str(squareNorm) + ', beta='+str(beta) + ', step_size='+str(step_size), 
                 sys.stdout.flush()
 
             # converged yet? try the parameters if so
